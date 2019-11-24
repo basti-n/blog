@@ -1,63 +1,41 @@
 <template>
   <div class="container">
     <div>
-      <logo />
       <h1 class="title">
-        blog-miriam
+        Miriam & Fips'ssss Blog
       </h1>
       <h2 class="subtitle">
         Food, Tri and more.
       </h2>
     </div>
+
+    <section>
+      <ul v-for="(blogPost, index) in blogPosts" :key="index">
+        <nuxt-link :to="`blog/${blogPost.slug}`">{{
+          blogPost.title
+        }}</nuxt-link>
+        <p>{{ blogPost.description }}</p>
+      </ul>
+    </section>
   </div>
 </template>
 
 <script>
-import Logo from "~/components/Logo.vue";
+import BlogPost from '../components/BlogPost'
 
 export default {
+  components: BlogPost,
+  computed: {
+    blogPosts() {
+      return this.$store.state.blogPosts;
+    }
+  },
   head() {
     return {
       script: [
         { src: "https://identity.netlify.com/v1/netlify-identity-widget.js" }
       ]
     };
-  },
-  components: {
-    Logo
   }
 };
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

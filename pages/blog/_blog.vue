@@ -1,19 +1,19 @@
 <template>
-  <article>
-    <h2>{{ blogPost.title }}</h2>
-    <div>
-      {{blogPost.body }}
-    </div>
-  </article>
+  <BlogPost :blogPost="blogPost"></BlogPost>
 </template>
 
 <script>
+import BlogPost from "../../components/BlogPost";
+
 export default {
+  components: {BlogPost},
   async asyncData({ params, payload }) {
     if (payload) {
       return { blogPost: payload };
     } else {
-      return await require(`~/assets/content/blog/${params.blogPost}.json`);
+      return {
+        blogPost: await require(`~/assets/content/blog/${params.blog}.json`)
+      };
     }
   }
 };
